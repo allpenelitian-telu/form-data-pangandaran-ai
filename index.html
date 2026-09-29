@@ -195,7 +195,7 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwAaILaB1WS4yTOlFk0rZdl-WZcR-EjroSpUot4rH2H6MfU_ZEAbMhCkRv--CnteypGVg/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwYXngI5F5dWSSALRK3Fmnt8IvD3W-M5pygua74WdadbA7-XEw8mwfVfVcLG7QZolDj0g/exec";
 
     function toggleSections() {
       const kategori = document.getElementById('kategori').value;
@@ -230,7 +230,7 @@
       
       const btnSubmit = document.getElementById('btnSubmit');
       btnSubmit.disabled = true;
-      btnSubmit.innerText = "Mengirim Data...";
+      btnSubmit.innerText = "Mengirim Data & Mengunggah Foto...";
 
       try {
         const formData = new FormData(this);
@@ -246,27 +246,39 @@
         payload.fotos = [];
         if (photoInput.files.length > 0) {
           for (let file of photoInput.files) {
+            // Batasi foto per file maks 5MB
+            if (file.size > 5 * 1024 * 1024) {
+              alert(`File ${file.name} terlalu besar (maksimal 5MB).`);
+              btnSubmit.disabled = false;
+              btnSubmit.innerText = "Kirim Data";
+              return;
+            }
             const fileData = await fileToBase64(file);
             payload.fotos.push(fileData);
           }
         }
 
-        await fetch(SCRIPT_URL, {
+        const response = await fetch(SCRIPT_URL, {
           method: 'POST',
-          mode: 'no-cors',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/plain;charset=utf-8'
           },
           body: JSON.stringify(payload)
         });
 
-        alert('Berhasil! Data dan foto telah dikirim ke Google Sheets & Drive.');
-        this.reset();
-        toggleSections();
+        const result = await response.json();
+
+        if (result.status === 'success') {
+          alert('Berhasil! Data dan foto telah tersimpan di Google Sheets & Drive.');
+          this.reset();
+          toggleSections();
+        } else {
+          alert('Gagal menyimpan data: ' + result.message);
+        }
 
       } catch (err) {
-        alert('Terjadi kesalahan saat mengirim data.');
         console.error(err);
+        alert('Terjadi kesalahan saat mengirim data. Silakan coba lagi.');
       } finally {
         btnSubmit.disabled = false;
         btnSubmit.innerText = "Kirim Data";
