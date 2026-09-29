@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Pengumpulan Data Pangandaran-ai</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 py-8 px-4 sm:px-6 lg:px-8">
+
+  <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-md p-6 sm:p-10 border border-slate-200">
+    <!-- Header -->
+    <header class="mb-8 border-b pb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Form Pengumpulan Data Pangandaran-ai</h1>
+      <p class="text-sm text-slate-600 leading-relaxed mb-3">
+        Form ini ditujukan sebagai persiapan program pengembangan kerjasama Universitas Telkom dengan Diskominfo Kab Pangandaran untuk pengayaan data pada platform pangandaran-ai.
+      </p>
+      <p class="text-xs text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-200">
+        📌 Pengisian form ini dilakukan dengan cara langsung survei lapangan dalam program KKN Pemerintah Kab Pangandaran dengan Universitas Telkom oleh Mahasiswa dan Dosen Pembimbing.
+      </p>
+    </header>
+
+    <!-- Form -->
+    <form id="dataForm" class="space-y-6">
+      
+      <!-- Field Umum -->
+      <div>
+        <label class="block text-sm font-semibold mb-1">Nama Tempat <span class="text-red-500">*</span></label>
+        <input type="text" name="nama_tempat" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Kategori <span class="text-red-500">*</span></label>
+        <select id="kategori" name="kategori" required onchange="toggleSections()" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          <option value="">-- Pilih Kategori --</option>
+          <option value="penginapan">Penginapan</option>
+          <option value="restoran">Restoran</option>
+          <option value="tempat_wisata">Tempat Wisata/Atraksi</option>
+          <option value="pasar">Pasar</option>
+          <option value="fasilitas_umum">Fasilitas Umum</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Alamat <span class="text-red-500">*</span></label>
+        <textarea name="alamat" rows="2" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Latitude dan Longitude <span class="text-red-500">*</span></label>
+        <input type="text" name="lat_long" placeholder="Contoh: -7.6983, 108.6534" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <span class="text-xs text-slate-500">Pisahkan koordinat dengan tanda koma.</span>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Foto Tempat (Bisa lebih dari 1)</label>
+        <input type="file" id="fotoInput" name="foto" multiple accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Deskripsi Tempat <span class="text-red-500">*</span></label>
+        <textarea name="deskripsi" rows="3" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+      </div>
+
+      <!-- Section Kategori: Penginapan -->
+      <div id="section-penginapan" class="hidden space-y-4 p-5 bg-slate-50 rounded-lg border border-slate-200 mt-6">
+        <h3 class="font-bold text-lg text-blue-900 border-b pb-2">Detail Penginapan</h3>
+        
+        <div>
+          <label class="block text-sm font-semibold mb-1">Ada berapa Kamar?</label>
+          <input type="number" name="jumlah_kamar" min="0" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Nama atau Kategori Kamar</label>
+          <textarea name="kategori_kamar" rows="3" placeholder="- Deluxe Room&#10;- Standard Room&#10;- Family Suite" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Rentang Harga</label>
+          <input type="text" name="harga_penginapan" placeholder="Contoh: Rp 200.000 - Rp 750.000 / malam" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Jam Operasional</label>
+          <input type="text" name="jam_penginapan" placeholder="Contoh: Check-in 14:00, Check-out 12:00 / 24 Jam" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Kontak Pemilik / No WhatsApp</label>
+          <input type="tel" name="kontak_penginapan" placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Alamat Website <span class="text-xs text-slate-400 font-normal">(opsional)</span></label>
+          <input type="url" name="website_penginapan" placeholder="https://" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+      </div>
+
+      <!-- Section Kategori: Restoran -->
+      <div id="section-restoran" class="hidden space-y-4 p-5 bg-slate-50 rounded-lg border border-slate-200 mt-6">
+        <h3 class="font-bold text-lg text-blue-900 border-b pb-2">Detail Restoran / Tempat Makan</h3>
+        
+        <div>
+          <label class="block text-sm font-semibold mb-1">Ada menu apa saja?</label>
+          <textarea name="menu_restoran" rows="3" placeholder="Sebutkan menu andalan / kategori menu" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Rentang Harga</label>
+          <input type="text" name="harga_restoran" placeholder="Contoh: Rp 15.000 - Rp 80.000 / porsi" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Jam Operasional</label>
+          <input type="text" name="jam_restoran" placeholder="Contoh: 08:00 - 21:00 WIB" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Bisa Reservasi?</label>
+          <select name="reservasi_restoran" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <option value="">-- Pilih --</option>
+            <option value="Ya">Ya</option>
+            <option value="Tidak">Tidak</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Kontak Pemesanan / WhatsApp</label>
+          <input type="tel" name="kontak_restoran" placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Website / Link Toko Online <span class="text-xs text-slate-400 font-normal">(Gojek/Grab/dll - opsional)</span></label>
+          <input type="url" name="website_restoran" placeholder="https://" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+      </div>
+
+      <!-- Section Kategori: Tempat Wisata -->
+      <div id="section-tempat_wisata" class="hidden space-y-4 p-5 bg-slate-50 rounded-lg border border-slate-200 mt-6">
+        <h3 class="font-bold text-lg text-blue-900 border-b pb-2">Detail Tempat Wisata / Atraksi</h3>
+        
+        <div>
+          <label class="block text-sm font-semibold mb-1">Destinasi atau Jasa yang Ditawarkan</label>
+          <textarea name="jasa_wisata" rows="3" placeholder="Sebutkan fasilitas, wahana, atau aktivitas wisata" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Rentang Harga Tiket / Masuk</label>
+          <input type="text" name="harga_wisata" placeholder="Contoh: Tiket masuk Rp 20.000 / orang" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Jam Operasional</label>
+          <input type="text" name="jam_wisata" placeholder="Contoh: Setiap hari 07:00 - 17:00 WIB" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Bisa Reservasi?</label>
+          <select name="reservasi_wisata" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <option value="">-- Pilih --</option>
+            <option value="Ya">Ya</option>
+            <option value="Tidak">Tidak</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Ada Paket Tour?</label>
+          <select name="paket_tour" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <option value="">-- Pilih --</option>
+            <option value="Ya">Ya</option>
+            <option value="Tidak">Tidak</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Kontak Pemesanan / WhatsApp</label>
+          <input type="tel" name="kontak_wisata" placeholder="08xxxxxxxxxx" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Website / Tempat Beli Tiket Online <span class="text-xs text-slate-400 font-normal">(opsional)</span></label>
+          <input type="url" name="website_wisata" placeholder="https://" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="pt-4">
+        <button type="submit" id="btnSubmit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 flex justify-center items-center gap-2">
+          <span>Kirim Data</span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwAaILaB1WS4yTOlFk0rZdl-WZcR-EjroSpUot4rH2H6MfU_ZEAbMhCkRv--CnteypGVg/exec";
+
+    function toggleSections() {
+      const kategori = document.getElementById('kategori').value;
+      
+      document.getElementById('section-penginapan').classList.add('hidden');
+      document.getElementById('section-restoran').classList.add('hidden');
+      document.getElementById('section-tempat_wisata').classList.add('hidden');
+
+      if (kategori === 'penginapan') {
+        document.getElementById('section-penginapan').classList.remove('hidden');
+      } else if (kategori === 'restoran') {
+        document.getElementById('section-restoran').classList.remove('hidden');
+      } else if (kategori === 'tempat_wisata') {
+        document.getElementById('section-tempat_wisata').classList.remove('hidden');
+      }
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve({
+          base64: reader.result.split(',')[1],
+          mimeType: file.type
+        });
+        reader.onerror = error => reject(error);
+      });
+    }
+
+    document.getElementById('dataForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const btnSubmit = document.getElementById('btnSubmit');
+      btnSubmit.disabled = true;
+      btnSubmit.innerText = "Mengirim Data...";
+
+      try {
+        const formData = new FormData(this);
+        const payload = {};
+
+        formData.forEach((value, key) => {
+          if (key !== 'foto') {
+            payload[key] = value;
+          }
+        });
+
+        const photoInput = document.getElementById('fotoInput');
+        payload.fotos = [];
+        if (photoInput.files.length > 0) {
+          for (let file of photoInput.files) {
+            const fileData = await fileToBase64(file);
+            payload.fotos.push(fileData);
+          }
+        }
+
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        alert('Berhasil! Data dan foto telah dikirim ke Google Sheets & Drive.');
+        this.reset();
+        toggleSections();
+
+      } catch (err) {
+        alert('Terjadi kesalahan saat mengirim data.');
+        console.error(err);
+      } finally {
+        btnSubmit.disabled = false;
+        btnSubmit.innerText = "Kirim Data";
+      }
+    });
+  </script>
+</body>
+</html>
